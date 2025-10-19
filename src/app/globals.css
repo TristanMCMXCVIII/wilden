@@ -1,26 +1,169 @@
+/*  Tailwind v4  */
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+/* ========== THEME TOKENS ========== */
+@theme {
+  /* Palette neutre (Noir & Blanc) */
+  --color-neutral-0: #ffffff;
+  --color-neutral-50: #f8f9fb;
+  --color-neutral-100: #f2f3f6;
+  --color-neutral-200: #e6e8ee;
+  --color-neutral-300: #d3d7df;
+  --color-neutral-400: #aeb4c0;
+  --color-neutral-500: #8a93a3;
+  --color-neutral-600: #5f6675;
+  --color-neutral-700: #3f4551;
+  --color-neutral-800: #252a33;
+  --color-neutral-900: #0f1115;
+  --color-neutral-950: #07080a;
+
+  /* Accents (utilitaires & accessibilité) */
+  --color-success-500: #16a34a; /* vert */
+  --color-danger-500:  #dc2626; /* rouge */
+  --color-info-500:    #2563eb; /* bleu (liens / focus) */
+  --color-warning-500: #d97706; /* amber */
+
+  /* Sémantiques (NB par défaut, tu peux remapper plus tard) */
+  --color-bg: var(--color-neutral-0);
+  --color-fg: var(--color-neutral-900);
+  --color-muted: var(--color-neutral-600);
+  --color-border: var(--color-neutral-200);
+  --color-elevated: var(--color-neutral-50);
+
+  /* Typographie */
+  --font-sans: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto,
+  "Helvetica Neue", Arial, "Noto Sans", "Apple Color Emoji",
+  "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+
+  /* Rounds & Shadows */
+  --radius-sm: 0.375rem;  /* 6px */
+  --radius-md: 0.5rem;    /* 8px */
+  --radius-lg: 0.75rem;   /* 12px */
+  --radius-xl: 1rem;      /* 16px */
+  --radius-2xl: 1.25rem;  /* 20px */
+
+  --shadow-xs: 0 1px 2px rgba(15,17,21,0.06);
+  --shadow-sm: 0 2px 6px rgba(15,17,21,0.06);
+  --shadow-md: 0 6px 14px rgba(15,17,21,0.07);
+  --shadow-lg: 0 10px 24px rgba(15,17,21,0.08);
+
+  /* Layout */
+  --container-max: 1200px;
+  --section-y: clamp(3rem, 6vw, 6rem); /* sections aérées */
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
+/* ========== BASE ========== */
+@layer base {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    color-scheme: light;
+  }
+
+  html, body {
+    height: 100%;
+    background: var(--color-bg);
+    color: var(--color-fg);
+    font-family: var(--font-sans);
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  a {
+    @apply underline-offset-2 decoration-neutral-300 hover:decoration-neutral-800;
+  }
+
+  /* Focus visible accessible (WCAG) */
+  :focus-visible {
+    outline: 2px solid var(--color-info-500);
+    outline-offset: 2px;
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+/* ========== UTILITAIRES GLOBAUX ========== */
+@layer utilities {
+  .text-balance { text-wrap: balance; }
+  .safe-cols    { max-width: var(--container-max); margin-inline: auto; padding-inline: 1rem; }
+  @media (min-width: 768px) { .safe-cols { padding-inline: 1.25rem; } }
+  @media (min-width: 1024px){ .safe-cols { padding-inline: 1.5rem; } }
+
+  .shadow-card  { box-shadow: var(--shadow-sm); }
+  .shadow-card-md { box-shadow: var(--shadow-md); }
+  .glass {
+    background: color-mix(in oklab, var(--color-neutral-0) 70%, transparent);
+    backdrop-filter: saturate(1.1) blur(6px);
+  }
+}
+
+/* ========== COMPOSANTS ========== */
+@layer components {
+  /* Container section */
+  .section {
+    padding-block: var(--section-y);
+  }
+
+  .eyebrow {
+    @apply text-xs tracking-[0.14em] uppercase text-neutral-500;
+  }
+
+  .h1 {
+    @apply text-3xl md:text-5xl font-semibold leading-tight tracking-tight;
+  }
+  .h2 {
+    @apply text-2xl md:text-4xl font-semibold leading-snug tracking-tight;
+  }
+  .h3 {
+    @apply text-xl md:text-2xl font-semibold leading-snug;
+  }
+  .muted {
+    @apply text-neutral-600;
+  }
+
+  /* Buttons */
+  .btn {
+    @apply inline-flex items-center justify-center gap-2 rounded-xl px-4 py-2 text-sm font-medium transition;
+    box-shadow: var(--shadow-xs);
+  }
+  .btn-primary {
+    @apply bg-neutral-900 text-neutral-0 hover:bg-neutral-800 active:bg-neutral-900;
+  }
+  .btn-ghost {
+    @apply bg-transparent text-neutral-900 hover:bg-neutral-100;
+  }
+
+  /* Badges (chips) */
+  .badge {
+    @apply inline-flex items-center gap-2 rounded-full border px-3 py-1 text-xs font-medium;
+    border-color: var(--color-border);
+    background: var(--color-elevated);
+    color: var(--color-muted);
+  }
+
+  /* Cards */
+  .card {
+    @apply rounded-2xl border bg-white p-6;
+    border-color: var(--color-border);
+    box-shadow: var(--shadow-sm);
+  }
+
+  /* Logo cloud items */
+  .logo-item {
+    @apply grayscale opacity-70 hover:opacity-100 hover:grayscale-0 transition;
+  }
+
+  /* List check */
+  .list-check {
+    @apply space-y-2;
+  }
+  .list-check li {
+    @apply pl-6 relative;
+  }
+  .list-check li::before {
+    content: "✓";
+    @apply absolute left-0 top-0 text-neutral-900;
+  }
+
+  /* Prose minimaliste */
+  .prose-min {
+    @apply leading-relaxed text-sm md:text-base text-neutral-700;
+  }
 }
