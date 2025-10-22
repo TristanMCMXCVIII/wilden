@@ -17,10 +17,12 @@ import {
 
 export default function Page() {
   return (
-      <>
-        <header className="section" role="banner" aria-label="En-tête">
+      <main className="overflow-hidden">
+
+
+        <header className="section bg-amber-200" role="banner" aria-label="En-tête">
           <Container>
-            <div className="flex flex-col items-start gap-6">
+            <div className="flex flex-col items-start gap-6 bg-blue-300">
               <Badge>{HERO.eyebrow}</Badge>
               <h1 className="h1 text-balance">{HERO.title}</h1>
               <p className="muted max-w-2xl">{HERO.subtitle}</p>
@@ -161,6 +163,6 @@ export default function Page() {
             </div>
           </Container>
         </footer>
-      </>
+  </main>
   );
 }
