@@ -1,3 +1,5 @@
+import {Header} from "@/sections/Header";
+
 export const dynamic = 'force-static';
 export const revalidate = 3600; // régénère au plus 1x/heure si besoin
 
@@ -19,6 +21,7 @@ export default function Page() {
   return (
       <main className="overflow-hidden">
 
+        <Header />
 
         <header className="section bg-amber-200" role="banner" aria-label="En-tête">
           <Container>

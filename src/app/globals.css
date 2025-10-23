@@ -92,6 +92,10 @@
     background: color-mix(in oklab, var(--color-neutral-0) 70%, transparent);
     backdrop-filter: saturate(1.1) blur(6px);
   }
+
+  .container {
+    @apply mx-auto max-w-[1252px] px-16 max-xl:px-10 max-lg:px-6 max-sm:px-4;
+  }
 }
 
 /* ========== COMPOSANTS ========== */
