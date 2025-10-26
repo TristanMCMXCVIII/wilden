@@ -4,6 +4,8 @@ import {useEffect, useState} from "react";
 import clsx from "clsx";
 import Link from "next/link";
 
+import { X } from "lucide-react";
+
 
 export const Header = () => {
 
@@ -29,7 +31,7 @@ export const Header = () => {
     return (
         <header className={clsx(
             "fixed top-0 left-0 z-50 w-full transition-all duration-500 max-lg:py-4",
-            hasScrolled ? "py-2 bg-white/80 backdrop-blur-[2px]" : "py-8",
+            hasScrolled ? "py-2 bg-white/80 backdrop-blur-[2px]" : "py-6",
         )}>
             <div className="container flex justify-between items-center gap-4">
                 <Link href="/">
@@ -47,7 +49,7 @@ export const Header = () => {
                             <li key={item.href}>
                                 <Link
                                     href={item.href}
-                                    className="text-sm font-medium text-neutral-900 hover:opacity-80 focus:outline-none focus-visible:ring-2 focus-visible:ring-black/20"
+                                    className="text-md font-medium text-neutral-900 hover:opacity-80 focus:outline-none focus-visible:ring-2 focus-visible:ring-black/20"
                                 >
                                     {item.label}
                                 </Link>
@@ -55,6 +57,9 @@ export const Header = () => {
                         ))}
                     </ul>
                 </nav>
+
+                {/*Buttons for small devices */}
+                <X className="w-5 h-5 text-gray-600"/>
             </div>
 
         </header>
